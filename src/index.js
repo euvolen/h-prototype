@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
-import {IN_PROD} from './configs'
+import {IN_PROD, PORT} from './configs'
 import * as db from './db/db-connect'
 import session from './db/sessions'
 import typeDefs from './api/apollo/typedefs'
@@ -34,11 +34,11 @@ db.connect().then(()=>{
       },
       context: ({req, res})=>({req,res})
   })
-  const port = 5000
+
   //add express as a middleware   
   server.applyMiddleware({ app , cors:false})
-    app.listen(port, () => {
-      console.log(`Server ready at http://localhost:${port}`)
+    app.listen(PORT, () => {
+      console.log(`Server ready at http://localhost:${PORT}`)
   })
 
   }).catch(err =>{
