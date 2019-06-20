@@ -1,5 +1,9 @@
 import express from 'express'
 import {SECRET_OR_KEY} from '../../configs'
+import jwt from 'jsonwebtoken'
+import {decrypt} from '../../utils/cryptography'
+import {User} from '../../models'
+
 const router = express()
 
 router.get('/test', (req, res) => res.json({ msg: "Works" }));
@@ -14,7 +18,8 @@ router.get('/verify_email=:token',(req, res)=>{
         else{
             const user = JSON.parse(decrypt(encrypted))
             const current = await User.findByIdAndUpdate(user.id, {isVerified:true})
-            req.session.userId = current.id
+            if(current)
+                req.session.user = current.id
             res.redirect("http://localhost:3000/")
         }
     })

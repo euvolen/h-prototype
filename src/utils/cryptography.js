@@ -18,26 +18,3 @@ export const decrypt = (text) => {
  decrypted = Buffer.concat([decrypted, decipher.final()]);
  return decrypted.toString();
 }
-function sendUserEmail(req, res, user, theme){
-    const payload = {
-        id: user.id,
-        email: user.email,
-    }
-    const js = JSON.stringify(payload)
-
-    const encrypted = crypto.encrypt(js)
-    
-
-    jwt.sign(
-        encrypted,
-        keys.secretOrKey, {
-            expiresIn: '1h'
-        },
-        (err, token) => {
-      
-            sendEmail(req, res, [`${user.email}`], theme, theme === "Email Verification" ? 
-            emailVerification(user.name, `<a href=http://localhost:5000/api/users/verify_email=${token}>LINK</a>`):
-            passwordTemplate(user.name, `<a href=http://localhost:5000/api/users/change_password.auth=${token}>LINK</a>`))
-          
-        })
-}

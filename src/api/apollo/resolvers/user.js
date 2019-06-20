@@ -14,17 +14,17 @@ export default {
     Query:{
         current: (root, args, {req}, info)=>{
 
-            return User.findById(req.session.userId)
+            return User.findById(req.session.user)
         }
     },
     Mutation:{
         signUp: async(root, args, {req, res}, info)=>{
-  
+       
              const user =  await User.create(args)
 
              sendEmail(res, user, "Email Verification" )
 
-             req.session.userId = user.id
+             req.session.user = user.id
   
              return user
             
@@ -32,7 +32,8 @@ export default {
         signIn: async (root, {email, password}, {req}, info)=>{
         
             const user = await attemtSignIn(email,password)
-            req.session.userId= user.id
+
+            req.session.user = user.id
  
             return user    
 

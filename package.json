@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r esm index.js ",
-    "dev": "nodemon -r esm index.js"
+    "dev": "nodemon -r esm index.js",
+    "client": "npm start --prefix client",
+    "setup": "npm i && cd client && npm i",
+    "prototype": "concurrently \"npm run dev\" \"npm run client\""
   },
   "author": "Eugene Volen",
   "license": "ISC",
@@ -24,6 +27,7 @@
     "vhost": "^3.0.2"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "nodemon": "^1.19.0"
   }
 }

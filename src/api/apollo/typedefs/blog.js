@@ -2,35 +2,32 @@ import {gql} from 'apollo-server-express'
 
 export default gql`
     extend type Query {
-        blog(id:ID!):Blog! @public
-        blogs:[Blog!] @public
+        blog(id:ID!):Blog 
+        blogs:[Blog!] 
     }
     extend type Mutation{
-        createBlog(title:String!, 
-                      description:String!,
+        saveBlog(title:String!, 
                       body:String!,                      
-                      images:[String!],  
-                      keywords:[String!],
           
-                      ):Blog @private
-        editBlog(id:ID!,  
-                      title:String!, 
-                      description:String!,
+                      ):Blog! @private
+        publishBlog(title:String!, 
                       body:String!,                      
-                      images:[String!], 
-                      keywords:[String!],
-            
-                      ):Blog @private               
+                      ):Blog! @private              
+        editBlog(id:ID!,  
+                      title:String, 
+                      body:String,
+                      isVisible:Boolean                           
+                      ):Blog! @private
+        changeVisibility(id:ID!, 
+                      isVisible:Boolean!                           
+                      ):Boolean @private                  
        deleteBlog(id:ID! ): Boolean @private
         
     }
     type Blog {
         id: ID!
         title:String!, 
-        description:String!,
         body:String!,                      
-        images:[String!],  
-        keywords:[String!],
         author:User
     }
   

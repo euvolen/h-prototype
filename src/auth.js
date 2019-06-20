@@ -41,4 +41,4 @@ export const signOut = (req, res)=> new Promise((resolve, reject)=>{
 
 
 //util methods
-const signedin = req => req.session.userId
+const signedin = req => req.session.user

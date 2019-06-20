@@ -37,6 +37,9 @@ db.connect().then(()=>{
 
   //add express as a middleware   
   server.applyMiddleware({ app , cors:false})
+  app.get('*', (req, res)=>{
+      res.redirect('http://localhost:3000')
+  })
     app.listen(PORT, () => {
       console.log(`Server ready at http://localhost:${PORT}`)
   })

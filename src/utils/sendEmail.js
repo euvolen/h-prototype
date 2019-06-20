@@ -36,8 +36,8 @@ export const sendEmail = ( res, user, subject) => {
           expiresIn: '1h'
       },
       (err, token) => {
-        let html = subject === "Email Verification" ? emailVerification(`<a href=https://mail.localhost:5000/verify_email=${token}>LINK</a>`):
-        password(`<a href=https://mail.localhost:5000/change_password.auth=${token}>LINK</a>`)
+        let html = subject === "Email Verification" ? emailVerification(`<a href=http://mail.localhost:5000/verify_email=${token}>LINK</a>`):
+        password(`<a href=http://mail.localhost:5000/change_password.auth=${token}>LINK</a>`)
        
         let options ={
           from: "Hunome",

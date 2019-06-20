@@ -3,7 +3,6 @@ import mongoose, { Schema } from 'mongoose'
 
 const blogSchema = new Schema({
     title:String,
-    description:String,
     body:String,
     author:{
         type: Schema.Types.ObjectId,

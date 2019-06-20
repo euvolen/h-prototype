@@ -12,34 +12,54 @@ import { Blog } from "../../../models"
 export default {
     Query:{
         blog: (root, args, {req}, info)=>{
-            return Blog.findById(args.id)
+            const blog =  Blog.findById(args.id)
+            if(blog.isVisible){
+                return blog
+            }
+            else {
+                return null
+            }
         },
         blogs: (root, args, {req}, info)=>{
             return Blog.find({isVisible:true})
         },
     },
     Mutation:{
-        createBlog: async(root, args, {req}, info)=>{
-            const { title, description, body, images, keywords} = args
+        saveBlog: async(root, args, {req}, info)=>{
+            const { title, body} = args
 
             const newBlog ={
-                title, description, body, images, keywords, author:req.session.user
+                title, body, author:req.session.user, isVisible:false
             }
-            //Validation
-            await Joi.validate(args, createBlog, { abortEarly: false })
 
-            const Blog = await Blog.create(newBlog)
-           return Blog
+            const blog = await Blog.create(newBlog)
+           return blog
+            
+        },
+        publishBlog: async(root, args, {req}, info)=>{
+            const { title, body} = args
+
+            const newBlog ={
+                title, body, author:req.session.user, isVisible:true
+            }
+
+            const blog = await Blog.create(newBlog)
+           return blog
             
         },
         editBlog: async(root, args, {req}, info)=>{
-            const { title, description, body, images, keywords} = args
+            const { title, body, isVisible} = args
 
-           //Validation
-           await Joi.validate(args, editBlog, { abortEarly: false })
-
-            const updated = await Blog.findByIdAndUpdate(args.id, {$set:{ title, description, body, images, keywords}}, {new:true})
+            const updated = await Blog.findByIdAndUpdate(args.id, {$set:{ title, body, isVisible}}, {new:true})
             return updated
+          
+        },
+        changeVisibility: async(root, args, {req}, info)=>{
+            const {isVisible} = args
+
+            await Blog.findByIdAndUpdate(args.id, {$set:{ isVisible}})
+
+            return true
           
         },
         deleteBlog: async(root, args, {req}, info)=>{
