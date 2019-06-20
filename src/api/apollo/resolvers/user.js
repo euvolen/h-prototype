@@ -1,6 +1,8 @@
 import { User } from "../../../models"
 import {signOut, attemtSignIn} from '../../../auth'
 import { sendEmail } from "../../../utils/sendEmail";
+import Joi from 'joi'
+import {signUp} from '../../../validation'
 
 /* 
  * Queries:
@@ -19,7 +21,8 @@ export default {
     },
     Mutation:{
         signUp: async(root, args, {req, res}, info)=>{
-       
+            
+             await Joi.validate(args, signUp,{ abortEarly: false })
              const user =  await User.create(args)
 
              sendEmail(res, user, "Email Verification" )

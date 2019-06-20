@@ -1,6 +1,7 @@
 
 import { Blog } from "../../../models"
-
+import Joi from 'joi'
+import {createBlog, editBlog} from '../../../validation'
 /* 
  * Queries:
  * Blog, 
@@ -21,13 +22,13 @@ export default {
             }
         },
         blogs: (root, args, {req}, info)=>{
-            return Blog.find({isVisible:true})
+            return Blog.find({isVisible:true}).sort({createdAt: -1})
         },
     },
     Mutation:{
         saveBlog: async(root, args, {req}, info)=>{
             const { title, body} = args
-
+            await Joi.validate(args, createBlog,{ abortEarly: false })
             const newBlog ={
                 title, body, author:req.session.user, isVisible:false
             }
@@ -38,7 +39,7 @@ export default {
         },
         publishBlog: async(root, args, {req}, info)=>{
             const { title, body} = args
-
+            await Joi.validate(args, createBlog,{ abortEarly: false })
             const newBlog ={
                 title, body, author:req.session.user, isVisible:true
             }
@@ -49,7 +50,7 @@ export default {
         },
         editBlog: async(root, args, {req}, info)=>{
             const { title, body, isVisible} = args
-
+            await Joi.validate(args, editBlog,{ abortEarly: false })
             const updated = await Blog.findByIdAndUpdate(args.id, {$set:{ title, body, isVisible}}, {new:true})
             return updated
           

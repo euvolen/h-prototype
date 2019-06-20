@@ -23,14 +23,13 @@ class Dashboard extends Component{
                     <div className="card-body">
                         <h4 className="card-title">Title</h4><input type="text" value={title} name="title" onChange={this.onChange.bind(this)} className="block-input"/>
                         <h4 className="card-title">Blog</h4><textarea type="text" value={body} name="body" onChange={this.onChange.bind(this)} className="block-input-text"/>
-                        {err ? <span>{err}</span>:undefined}
+                        {err ? <span className="danger">{err}</span>:undefined}
                         <div className="btn-group" role="group">
                             <Mutation mutation={SAVE_BLOG}>{( saveBlog, {data})=>{
                                 return(
                                     <button className="btn btn-secondary" onClick={()=>{
                                         saveBlog({variables: {title, body}})
                                         .then(res=>{
-                                            console.log(res) 
                                             this.setState({title:'', body:'', err:''})})
                                         .catch(err => {
                                           this.setState({err:err.message})
@@ -43,6 +42,8 @@ class Dashboard extends Component{
                                 return(
                                     <button className="btn btn-primary" onClick={()=>{
                                         publishBlog({variables: {title, body}})
+                                        .then(res=>{
+                                            this.setState({title:'', body:'', err:''})})
                                         .catch(err => {
                                           this.setState({err:err.message})
                                      })
