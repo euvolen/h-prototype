@@ -4,6 +4,8 @@ export default gql`
     extend type Query {
         blog(id:ID!):Blog 
         blogs:[Blog!] 
+        userBlogs: [Blog!] @private
+        drafts:[Blog!] @private
     }
     extend type Mutation{
         saveBlog(title:String!, 

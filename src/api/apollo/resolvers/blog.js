@@ -4,10 +4,10 @@ import Joi from 'joi'
 import {createBlog, editBlog} from '../../../validation'
 /* 
  * Queries:
- * Blog, 
+ * blog, blogs, userBlogs, drafts 
  * 
  * Methods:
- * createBlog, editBlog, deleteBlog
+ * createBlog, editBlog, deleteBlog, changeVisibility
  * 
  */
 export default {
@@ -23,6 +23,13 @@ export default {
         },
         blogs: (root, args, {req}, info)=>{
             return Blog.find({isVisible:true}).sort({createdAt: -1})
+        },
+        userBlogs: async (root, args, {req}, info)=>{
+            return await Blog.find({author: req.session.user}).sort({createdAt: -1})
+           
+        },
+        drafts: async (root, args, {req}, info)=>{
+            return await Blog.find({author: req.session.user, isVisible:false}).sort({createdAt: -1})
         },
     },
     Mutation:{

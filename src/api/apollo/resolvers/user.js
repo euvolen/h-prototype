@@ -9,7 +9,7 @@ import {signUp} from '../../../validation'
  * current, 
  * 
  * Methods:
- * signin, signup, signout
+ * signin, signup, changePassword, signout
  * 
  */
 export default {
@@ -39,6 +39,14 @@ export default {
             req.session.user = user.id
  
             return user    
+
+        },
+        changePassword: async (root, args, {req}, info)=>{
+            await Joi.validate(args, changePassword,{ abortEarly: false })
+            const {password} = args
+            await User.findByIdAndUpdate(req.session.user, {$set:{password}})
+            
+            return true    
 
         },
         signOut: (root, args, {req, res}, info)=>{

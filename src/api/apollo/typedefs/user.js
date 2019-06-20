@@ -7,6 +7,7 @@ export default gql`
     extend type Mutation{
         signUp(email:String!, name:String!,  password:String!):User @public
         signIn (email:String!, password:String!): User @public
+        changePassword(password:String!): Boolean @private
         signOut: Boolean @private
     }
     type User {

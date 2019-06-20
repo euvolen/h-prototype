@@ -15,3 +15,6 @@ language:{
 export const signUp = Joi.object().keys({
     email, password, name
 })
+export const changePassword = Joi.object().keys({
+    password
+})
