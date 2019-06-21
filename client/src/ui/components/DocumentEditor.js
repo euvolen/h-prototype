@@ -17,33 +17,38 @@ class DocumentEditor extends Component {
     }
 
     render() {
+
         const {title, body, err, id, isVisible} = this.state
         return (
+            <div className="container dashboard">
             <div className="row m-2">
             <div className="col col-md-12">
                 <div className="card">
                     <div className="card-body">
+                         <h1>{id ? "Edit blog" : "Create blog"}</h1>
                         <h4 className="card-title">Title</h4><input type="text" value={title} name="title" onChange={this.onChange.bind(this)} className="block-input"/>
                         <h4 className="card-title">Blog</h4><textarea type="text" value={body} name="body" onChange={this.onChange.bind(this)} className="block-input-text"/>
                         {err ? <span className="danger">{err}</span>:undefined}
-                        {id ? editBlog(id, title, body, err, isVisible) : createBlog(title, body, err)}
+                        {id ? editBlog(id, title, body, err, isVisible, this) : createBlog(title, body, err, this)}
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         )
     }
 }
 
 
-const createBlog = (title, body, err) =>(
+const createBlog = (title, body, err, component) =>(
     <div className="btn-group" role="group">
     <Mutation mutation={SAVE_BLOG}>{( saveBlog, {data})=>{
+        
         return(
             <button className="btn btn-secondary" onClick={()=>{
                 saveBlog({variables: {title, body}})
                 .then(res=>{
-                     })
+                    component.props.history.push('/dashboard')  })
                 .catch(err => {
                   
              })
@@ -56,7 +61,7 @@ const createBlog = (title, body, err) =>(
             <button className="btn btn-primary" onClick={()=>{
                 publishBlog({variables: {title, body}})
                 .then(res=>{
-                       })
+                    component.props.history.push('/dashboard')   })
                 .catch(err => {
                   
              })
@@ -67,14 +72,15 @@ const createBlog = (title, body, err) =>(
     
     </div>
 )
-const editBlog = (id, title, body, err, isVisible) =>(
+const editBlog = (id, title, body, err, isVisible, component) =>(
     <div className="btn-group" role="group">
     <Mutation mutation={EDIT_BLOG}>{( editBlog, {data})=>{
+        console.log(component)
         return(
             <button className="btn btn-primary" onClick={()=>{
                 editBlog({variables: {id,title, body}})
                 .then(res=>{
-                    })
+                   component.props.history.push('/dashboard') })
                 .catch(err => {
                   
              })
@@ -87,6 +93,7 @@ const editBlog = (id, title, body, err, isVisible) =>(
             <button className="btn btn-primary" onClick={()=>{
                 changeVisibility({variables: {id, isVisible:true}})
                 .then(res=>{
+                    component.props.history.push('/dashboard')
                   })
                 .catch(err => {
                   

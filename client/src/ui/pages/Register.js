@@ -33,10 +33,10 @@ class Register extends Component {
                             e.preventDefault()
                             if(password===password2)  {
                             signUp({variables: {email, name,  password}})
-                            .then(res=>{})
+                            .then(res=>{this.props.authenticateUser(res.data.signUp, this.props.history)})
                             .catch(err => {
                               this.setState({err:err.message})
-                           })}
+                              this.props.getErrors(err.message)})}
                             else{
                                 this.setState({err:"Passwords don't match"})
                             }}}>
@@ -91,12 +91,10 @@ class Register extends Component {
 Register.propTypes = {
   authenticateUser: PropTypes.func.isRequired,
   getErrors: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
   errors: state.errors
 });
 export default connect(mapStateToProps, { getErrors, authenticateUser })(Register);

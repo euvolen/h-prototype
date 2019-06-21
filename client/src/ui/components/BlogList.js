@@ -3,29 +3,31 @@ import {BLOGS} from '../../apollo/Queries'
 import BlogItem from './BlogItem';
 import {Query} from 'react-apollo'
 import _ from 'lodash'
+import Loading from './Loading';
+import ConnectionError from './ConnectionError';
 
 function BlogList() {
     return (
-           <Query query={BLOGS}>
+           <Query query={BLOGS} pollInterval={200}>
           {({ loading, error, data }) => {
 
-          if(loading) return <div>Loading...</div>
+          if(loading) return <Loading/>
           if (error){ 
            
             setTimeout(()=>{
               window.location.reload()
             }, 2000)
-            return <div>Connection error...</div>}
+            return <ConnectionError/>}
           else{
             const {blogs} = data
 
-          if(blogs)
+          if(blogs.length>0)
 
-             return (<div className="row m-2">{_.range(blogs.length < 3 ? blogs.length : 3).map(i => <BlogItem key={i} blog={blogs[i]}/> )}</div>)
+             return (<div className="row m-2">{_.range(blogs.length < 3 ? blogs.length : 3).map(i => <BlogItem key={i} {...blogs[i]}/> )}</div>)
              
           else
 
-          return <div>Loading...</div>
+          return <div>No blogs...</div>
               }
           }}
         </Query>

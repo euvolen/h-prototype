@@ -1,6 +1,8 @@
 import React from 'react'
 import {BLOGS} from '../../apollo/Queries'
 import {Query} from 'react-apollo'
+import Loading from '../components/Loading';
+import ConnectionError from '../components/ConnectionError';
 
 const blog = (id, title, body, name) => (
                <div key={id} className="col col-md-12 m-2">
@@ -17,14 +19,14 @@ const blog = (id, title, body, name) => (
 
 function Blogs() {
     return (
-        <Query query={BLOGS}>
+        <Query query={BLOGS} pollInterval={60000}>
        {({ loading, error, data }) => {
-       if(loading) return <div>Loading...</div>
+       if(loading) return <Loading/>
        if(error) {
-        
-       }
-       else{
-  
+            setTimeout(()=>{
+                window.location.reload()
+            }, 2000)
+            return <ConnectionError/>
        }
 
        return (

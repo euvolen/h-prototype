@@ -25,7 +25,7 @@ export default {
             return Blog.find({isVisible:true}).sort({createdAt: -1})
         },
         userBlogs: async (root, args, {req}, info)=>{
-            return await Blog.find({author: req.session.user}).sort({createdAt: -1})
+            return await Blog.find({author: req.session.user, isVisible:true}).sort({createdAt: -1})
            
         },
         drafts: async (root, args, {req}, info)=>{
@@ -60,9 +60,9 @@ export default {
             
         },
         editBlog: async(root, args, {req}, info)=>{
-            const { title, body, isVisible} = args
+            const { title, body} = args
             await Joi.validate(args, editBlog,{ abortEarly: false })
-            const updated = await Blog.findByIdAndUpdate(args.id, {$set:{ title, body, isVisible}}, {new:true})
+            const updated = await Blog.findByIdAndUpdate(args.id, {$set:{ title, body}}, {new:true})
             return updated
           
         },

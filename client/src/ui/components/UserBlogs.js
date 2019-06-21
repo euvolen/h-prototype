@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import {USER_BLOGS} from '../../apollo/Queries'
 import {Query, Mutation} from 'react-apollo'
 import { DELETE_BLOG} from '../../apollo/Mutations';
+import Loading from './Loading';
+import ConnectionError from './ConnectionError';
 
 const blog = (id, title, body, name) => (
 
@@ -12,7 +14,7 @@ const blog = (id, title, body, name) => (
                         <div className="card-body">
                         <div className="row">
                         <div className="col col-md-10">  <h6 className="text-muted card-subtitle mb-2">{name}</h6></div>
-                            <div className="col col-md-1"><Link className="btn btn-primary" to={`/edit-blog/${id}`}></Link>
+                            <div className="col col-md-1"><Link className="btn btn-primary" to={`/edit-blog/${id}`}><i className="fa fa-pencil"></i></Link>
                             </div>
                             <div className="col col-md-1"><Mutation mutation={DELETE_BLOG}>{(deleteBlog)=>{
                                 return <button className="btn btn-danger" onClick={()=>{
@@ -25,7 +27,7 @@ const blog = (id, title, body, name) => (
                             <p className="card-text">{body}</p>
                         </div>
 
-                        <i className="fa fa-pencil"></i>
+                        
                         </div>
                     </div>
 
@@ -34,14 +36,14 @@ const blog = (id, title, body, name) => (
 
 function UserBlogs() {
     return (
-        <Query query={USER_BLOGS}>
+        <Query query={USER_BLOGS} pollInterval={200}>
        {({ loading, error, data }) => {
-       if(loading) return <div>Loading...</div>
+       if(loading) return <Loading/>
        if(error) {
            setTimeout(()=>{
                window.location.reload()
            }, 2000)
-        return <div>Connection error</div>
+        return <ConnectionError/>
        }
 
        return (
