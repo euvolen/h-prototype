@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-
-class BlogItem extends Component {
+import {Link} from 'react-router-dom'
+class DraftItem extends Component {
     
     render() {
-        const {title, body, author}=this.props
+        const {title, body, author, id}=this.props
 
         return (
             <div className="col col-md-4">
           <div className="card">
                 <div className="card-body">
                     <h6 className="text-muted card-subtitle mb-2"> {author.name}</h6>
-                    <h4 className="card-title">{title}</h4>
+                    <Link to ={`/edit-blog/${id}`} className="card-title">{title}</Link>
                     <p className="card-text">{body.substring(0, 95)+'...'}</p>
                 </div>
             </div>
@@ -18,4 +18,4 @@ class BlogItem extends Component {
         )
     }
 }
-export default BlogItem 
+export default DraftItem 

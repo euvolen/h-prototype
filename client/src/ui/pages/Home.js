@@ -1,6 +1,13 @@
 import React from 'react'
 import {Link}from 'react-router-dom'
 import BlogList from '../components/BlogList';
+import Test from '../components/Test';
+
+const blog = {
+    title:'title',
+    body:'body',
+    id:'id'
+}
 function Home() {
     return (
        <>
@@ -13,13 +20,14 @@ function Home() {
         <section> 
             <div className="container">
             <BlogList/>
+
             <div className="row m-2">
                 <div className="col col-md-4"></div>
                 <div className="col col-md-4"></div>
                 <div className="col col-md-4"><Link to="/blogs">Read more...</Link></div>
             </div>   
             </div>
-
+        <Test {...blog}/>
         </section>
      </>
     )

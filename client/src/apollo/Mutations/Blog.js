@@ -28,8 +28,8 @@ mutation ($title:String!,$body:String! ){
 // @private
 // return Blog
 export const EDIT_BLOG = gql`
-mutation ($id: ID!, $title:String!,$name:String!,$body:String! ){
-  editBlog(id:$id, title:$title, name:$name, body:$body){
+mutation ($id: ID!, $title:String!,$body:String! ){
+  editBlog(id:$id, title:$title, body:$body){
         id
     }
 }
@@ -39,5 +39,12 @@ mutation ($id: ID!, $title:String!,$name:String!,$body:String! ){
 export const DELETE_BLOG = gql`
 mutation ($id: ID!){
   deleteBlog(id: $id)
+}
+`
+// @private
+// return boolean
+export const CHANGE_VISIBILITY = gql`
+mutation ($id: ID! , $isVisible: Boolean!){
+  changeVisibility(id: $id, isVisible:$isVisible)
 }
 `

@@ -24,8 +24,7 @@ function Blogs() {
         
        }
        else{
-      
-         console.log(data)
+  
        }
 
        return (

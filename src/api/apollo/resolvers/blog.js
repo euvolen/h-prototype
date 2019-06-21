@@ -31,6 +31,10 @@ export default {
         drafts: async (root, args, {req}, info)=>{
             return await Blog.find({author: req.session.user, isVisible:false}).sort({createdAt: -1})
         },
+        draft: (root, args, {req}, info)=>{
+            console.log(args)
+           return Blog.findById(args.id)
+        },
     },
     Mutation:{
         saveBlog: async(root, args, {req}, info)=>{
@@ -64,7 +68,7 @@ export default {
         },
         changeVisibility: async(root, args, {req}, info)=>{
             const {isVisible} = args
-
+            console.log(args)
             await Blog.findByIdAndUpdate(args.id, {$set:{ isVisible}})
 
             return true

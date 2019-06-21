@@ -6,6 +6,7 @@ export default gql`
         blogs:[Blog!] 
         userBlogs: [Blog!] @private
         drafts:[Blog!] @private
+        draft(id:ID!):Blog! @private
     }
     extend type Mutation{
         saveBlog(title:String!, 
@@ -23,13 +24,14 @@ export default gql`
         changeVisibility(id:ID!, 
                       isVisible:Boolean!                           
                       ):Boolean @private                  
-       deleteBlog(id:ID! ): Boolean @private
+        deleteBlog(id:ID! ): Boolean @private
         
     }
     type Blog {
         id: ID!
         title:String!, 
-        body:String!,                      
+        body:String!, 
+        isVisible:Boolean,                     
         author:User
     }
   

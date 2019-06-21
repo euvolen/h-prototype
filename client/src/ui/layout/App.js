@@ -14,6 +14,7 @@ import store from '../../redux/store'
 import { authenticateUser } from '../../redux/actions';
 import PublicRoute from '../components/PublicRoute';
 import PrivateRoute from '../components/PrivateRoute';
+import BlogEditor from '../pages/BlogEditor';
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
               <PublicRoute exact path="/" component={Home} />
               <Route exact path="/blogs" component={Blogs} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/edit-blog/:id" component={BlogEditor} />
+              <PrivateRoute exact path="/edit-blog" component={BlogEditor} />
               <PublicRoute exact path="/login" component={Login} />
               <PublicRoute exact path="/register" component={Register} />
             </Switch>
