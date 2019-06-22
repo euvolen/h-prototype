@@ -18,7 +18,7 @@ function Home() {
             <div className="row m-2">
                 <div className="col col-md-4"></div>
                 <div className="col col-md-4"></div>
-                <div className="col col-md-4"><Link to="/blogs">Read more...</Link></div>
+                <div className="col col-md-4"><Link to="/feed">Read more...</Link></div>
             </div>   
             </div>
         </section>

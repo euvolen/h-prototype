@@ -7,6 +7,7 @@ export default gql`
         userBlogs: [Blog!] @private
         drafts:[Blog!] @private
         draft(id:ID!):Blog! @private
+        feed:Blogs!  
     }
     extend type Mutation{
         saveBlog(title:String!, 
@@ -32,7 +33,13 @@ export default gql`
         title:String!, 
         body:String!, 
         isVisible:Boolean,                     
-        author:User
+        author:String!
     }
-  
+    type Blogs{
+        length: Int!
+        blogFeed(cursor: Int!): BlogFeed!
+    }
+    type BlogFeed{
+        blogs:[Blog]!
+    }
 `

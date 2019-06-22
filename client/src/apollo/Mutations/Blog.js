@@ -6,9 +6,7 @@ export const SAVE_BLOG = gql`
 mutation ($title:String!,$body:String! ){
   saveBlog(title:$title, body:$body){
         id
-        author{
-            name
-        }
+        author
     }
 }
 `
@@ -18,9 +16,7 @@ export const PUBLISH_BLOG = gql`
 mutation ($title:String!,$body:String! ){
   publishBlog(title:$title, body:$body){
         id
-        author{
-            name
-        }
+        author
     }
 }
 `

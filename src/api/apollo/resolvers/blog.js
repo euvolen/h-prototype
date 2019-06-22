@@ -1,5 +1,5 @@
 
-import { Blog } from "../../../models"
+import { Blog, User } from "../../../models"
 import Joi from 'joi'
 import {createBlog, editBlog} from '../../../validation'
 /* 
@@ -29,12 +29,14 @@ export default {
            
         },
         drafts: async (root, args, {req}, info)=>{
-            return await Blog.find({author: req.session.user, isVisible:false}).sort({createdAt: -1})
+            return await Blog.find({author: req.session.user, isVisible:false}).sort({updatedAt: -1})
         },
         draft: (root, args, {req}, info)=>{
-            console.log(args)
            return Blog.findById(args.id)
         },
+        feed: (root, args, {req}, info)=>{
+            return Blog.find({isVisible:true}).sort({updatedAt: -1})
+         },
     },
     Mutation:{
         saveBlog: async(root, args, {req}, info)=>{
@@ -68,7 +70,6 @@ export default {
         },
         changeVisibility: async(root, args, {req}, info)=>{
             const {isVisible} = args
-            console.log(args)
             await Blog.findByIdAndUpdate(args.id, {$set:{ isVisible}})
 
             return true
@@ -82,7 +83,35 @@ export default {
     },
     Blog:{
         author: async (root, args, { req }, info) => {
-            return (await root.populate('author').execPopulate()).author
+       
+            const user = await User.findById(root.author)
+   
+            
+            return user.name
           },
-    }
+    },
+    Blogs:{
+        length: async (root, {cursor}, { req }, info) => {
+            
+            return root.length
+        },
+        blogFeed: async (root, {cursor}, { req }, info) => {
+            if (!cursor) {
+                cursor = 0
+              }
+        
+              const limit = cursor + 10
+
+              const blogFeed = {
+                blogs: root.slice(
+                    cursor,
+                    root.length < limit ? root.length : limit
+                ),
+              };
+              
+              return blogFeed;
+
+            //return (await root.populate('author').execPopulate()).author
+          },
+    },
 }

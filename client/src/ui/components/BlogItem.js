@@ -9,7 +9,7 @@ class BlogItem extends Component {
             <div className="col col-md-4">
           <div className="card">
                 <div className="card-body">
-                    <h6 className="text-muted card-subtitle mb-2"> {author.name}</h6>
+                    <h6 className="text-muted card-subtitle mb-2"> {author}</h6>
                     <h4 className="card-title">{title}</h4>
                     <p className="card-text">{body.substring(0, 95)+'...'}</p>
                 </div>

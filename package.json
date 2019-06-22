@@ -8,7 +8,7 @@
     "dev": "nodemon -r esm index.js",
     "client": "npm start --prefix client",
     "setup": "npm i && cd client && npm i",
-    "prototype": "concurrently \"npm run dev\" \"npm run client\""
+    "app": "concurrently \"npm run dev\" \"npm run client\""
   },
   "author": "Eugene Volen",
   "license": "ISC",

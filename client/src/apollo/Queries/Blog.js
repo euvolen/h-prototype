@@ -8,9 +8,7 @@ query ($id:ID!){
         id
        title
        body
-       author{
-           name
-       }
+       author
     }
 }
 `
@@ -22,9 +20,7 @@ query {
        id
        title
        body
-       author{
-           name
-       }
+       author
     }
 }
 `
@@ -36,9 +32,7 @@ query {
        id
        title
        body
-       author{
-           name
-       }
+       author
     }
 }
 `
@@ -50,9 +44,7 @@ query {
        id
        title
        body
-       author{
-           name
-       }
+       author
     }
 }
 `
@@ -65,9 +57,22 @@ query ($id:ID!) {
        title
        body
        isVisible
-       author{
-           name
-       }
+       author
     }
 }
+`
+export const FEED = gql`
+  query ( $cursor: Int!) {
+    feed {
+      length
+      blogFeed(cursor: $cursor) @connection(key: "blogFeed") {
+        blogs {
+          id
+          title
+          body
+          author
+        }
+      }
+    }
+  }
 `

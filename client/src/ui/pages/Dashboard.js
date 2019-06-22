@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Drafts from '../components/Drafts';
 import UserBlogs from '../components/UserBlogs';
-import DocumentEditor from '../components/DocumentEditor';
+
 
 const Dashboard =()=> (
         <div className="container dashboard">

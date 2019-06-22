@@ -5,7 +5,7 @@ function Footer() {
     
         <footer className="page-footer dark">
             <div className="footer-copyright">
-                <p>© 2019 Copyright Text</p>
+                <p>© {new Date().getFullYear()} Eugene Volen</p>
             </div>
         </footer>
     )

@@ -1,10 +1,10 @@
 import React from 'react'
 import {DRAFTS} from '../../apollo/Queries'
 import {Query} from 'react-apollo'
-import _ from 'lodash'
-import DraftItem from './DraftItem';
+
 import Loading from './Loading';
 import ConnectionError from './ConnectionError';
+import DraftCarousel from './DraftCarousel';
 
 function Drafts() {
     return (
@@ -21,12 +21,9 @@ function Drafts() {
           else{
             const {drafts} = data
 
-
-             return (<div className="container">
-                 <div className="row m-4">{_.range(drafts.length < 3 ? drafts.length : 3 ).map(i => <DraftItem key={i} {...drafts[i]}/> )}</div>
-                 </div>
-                 )
-            
+             return (
+               <DraftCarousel drafts={drafts}/>
+                 )           
               }
           }}
         </Query>
@@ -34,3 +31,5 @@ function Drafts() {
 }
 
 export default Drafts
+
+/**<div className="row m-4">{_.range(drafts.length < 3 ? drafts.length : 3 ).map(i => <DraftItem key={i} {...drafts[i]}/> )}</div> */

@@ -40,7 +40,7 @@ import { authenticateUser } from '../../redux/actions';
                 <div className={classnames("collapse navbar-collapse", {"show": isShow})}
                     id="navcol-1">
                          <ul className="nav navbar-nav ml-auto">
-                         <li className="nav-item" role="presentation"><Link className="nav-link" to="/blogs">Blogs</Link></li>
+                         <li className="nav-item" role="presentation"><Link className="nav-link" to="/feed">Feed</Link></li>
                         {
                             isAuthenticated ? privateNav : publicNav
                         }

@@ -51,7 +51,7 @@ function UserBlogs() {
        <h1 className="text-center">Blogs</h1>
        <div className="m-2">
            <div className="row m-2">
-       {data.userBlogs.map(({id, title, body, author}) => blog(id, title, body, author.name ))}
+       {data.userBlogs.map(({id, title, body, author}) => blog(id, title, body, author ))}
        </div>
      </div>
       </div>)

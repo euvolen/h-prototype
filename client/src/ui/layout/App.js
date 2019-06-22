@@ -8,13 +8,13 @@ import Footer from '../components/Footer';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-import Blogs from '../pages/Blogs';
 import { CURRENT } from '../../apollo/Queries'
 import store from '../../redux/store'
 import { authenticateUser } from '../../redux/actions';
 import PublicRoute from '../components/PublicRoute';
 import PrivateRoute from '../components/PrivateRoute';
 import BlogEditor from '../pages/BlogEditor';
+import Feed from '../pages/Feed';
 
 function App() {
   return (
@@ -37,7 +37,8 @@ function App() {
             
             <Switch>
               <PublicRoute exact path="/" component={Home} />
-              <Route exact path="/blogs" component={Blogs} />
+              <Route exact path="/feed" component={Feed} />
+              <Route exact path="/feed/:cursor" component={Feed} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/edit-blog/:id" component={BlogEditor} />
               <PrivateRoute exact path="/edit-blog" component={BlogEditor} />
