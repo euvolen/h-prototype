@@ -36,7 +36,7 @@ const blog = (id, title, body, name) => (
 
 function UserBlogs() {
     return (
-        <Query query={USER_BLOGS} pollInterval={200}>
+        <Query query={USER_BLOGS} pollInterval={500}>
        {({ loading, error, data }) => {
        if(loading) return <Loading/>
        if(error) {

@@ -37,7 +37,7 @@ export const sendEmail = ( res, user, subject) => {
       },
       (err, token) => {
         let html = subject === "Email Verification" ? emailVerification(`<a href=http://mail.localhost:5000/verify_email=${token}>LINK</a>`):
-        password(`<a href=http://mail.localhost:5000/change_password.auth=${token}>LINK</a>`)
+        password(`<a href=http://localhost:5000/api/pwd/change_password.auth=${token}>LINK</a>`)
        
         let options ={
           from: "Hunome",

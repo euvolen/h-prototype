@@ -7,20 +7,25 @@ import typeDefs from './api/apollo/typedefs'
 import resolvers from './api/apollo/resolvers'
 import schemaDirectives from './api/apollo/directives'
 import mail from './api/mail/mail'
+import pwd from './api/pwd/pwd'
 import vhost from 'vhost'
-
+import cors from 'cors'
+import bodyParser from 'body-parser'
 
 db.connect().then(()=>{
     const app = express()
-
+    // Body parser for parsing requests body
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
     app.disable('x-powered-by')
     
     //Sessions
     app.use(session)
   
-  
-    app.use(vhost('mail.*', mail))
+    app.use(cors())
 
+    app.use(vhost('mail.*', mail))
+    app.use('/api/pwd/', pwd)
     //Apollo-server-express
     const server = new ApolloServer({
       typeDefs,

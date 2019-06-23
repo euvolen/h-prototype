@@ -2,8 +2,8 @@ import { User } from "../../../models"
 import {signOut, attemtSignIn} from '../../../auth'
 import { sendEmail } from "../../../utils/sendEmail";
 import Joi from 'joi'
-import {signUp} from '../../../validation'
-
+import {changePassword} from '../../../validation'
+import bcrypt from 'bcryptjs'
 /* 
  * Queries:
  * current, 
@@ -42,10 +42,14 @@ export default {
 
         },
         changePassword: async (root, args, {req}, info)=>{
+          
             await Joi.validate(args, changePassword,{ abortEarly: false })
-            const {password} = args
-            await User.findByIdAndUpdate(req.session.user, {$set:{password}})
             
+            //hooks don't work in case of updating (in db)
+            const password = await bcrypt.hash(args.password, 10)
+
+            await User.findByIdAndUpdate(req.session.user, {$set:{password}}, {new:true})
+     
             return true    
 
         },

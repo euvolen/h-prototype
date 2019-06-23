@@ -21,7 +21,7 @@ const blog = (id, title, body, name) => (
 
 
 const test =(cursor) =>(
-    <Query query={FEED} variables={{cursor: cursor ? parseInt(cursor)*10 : 0}} pollInterval={100}>
+    <Query query={FEED} variables={{cursor: cursor ? parseInt(cursor)*10 : 0}} pollInterval={500}>
     {({ loading, error, data }) => {
     if(loading) return <Loading/>
     if(error) {
