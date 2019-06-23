@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import {Mutation} from 'react-apollo'
 import {SIGN_IN} from '../../apollo/Mutations'
 import { connect } from 'react-redux';
@@ -60,6 +61,7 @@ class Login extends Component {
                      </div>
                      {err ? <p>{err}</p>: undefined}
                   </form>
+                  <div className="text-center"><Link to="/password-recovery">Forget password?</Link></div>
               </div>
               </section>
             )}
@@ -72,13 +74,11 @@ class Login extends Component {
 Login.propTypes = {
   authenticateUser: PropTypes.func.isRequired,
   getErrors: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+
 };
 
 const mapStateToProps = state => ({
-  user: state.user,
-  errors: state.errors
+
 });
 export default connect(mapStateToProps, { getErrors, authenticateUser })(Login);
 

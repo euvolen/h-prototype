@@ -15,6 +15,8 @@ import PublicRoute from '../components/PublicRoute';
 import PrivateRoute from '../components/PrivateRoute';
 import BlogEditor from '../pages/BlogEditor';
 import Feed from '../pages/Feed';
+import PasswordRecovery from '../pages/PasswordRecovery';
+import ChangePassword from '../pages/ChangePassword';
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
             
             <Switch>
               <PublicRoute exact path="/" component={Home} />
+              <PublicRoute exact path="/password-recovery" component={PasswordRecovery} />
+              <PrivateRoute exact path="/change-password" component={ChangePassword} />
               <Route exact path="/feed" component={Feed} />
               <Route exact path="/feed/:cursor" component={Feed} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />

@@ -8,7 +8,7 @@ import ConnectionError from './ConnectionError';
 
 function BlogList() {
     return (
-           <Query query={BLOGS} pollInterval={200}>
+           <Query query={BLOGS} pollInterval={500}>
           {({ loading, error, data }) => {
 
           if(loading) return <Loading/>

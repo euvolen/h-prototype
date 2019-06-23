@@ -8,7 +8,7 @@ import DraftCarousel from './DraftCarousel';
 
 function Drafts() {
     return (
-           <Query query={DRAFTS}  pollInterval={200}>
+           <Query query={DRAFTS}  pollInterval={500}>
           {({ loading, error, data }) => {
 
           if(loading) return <Loading/>
